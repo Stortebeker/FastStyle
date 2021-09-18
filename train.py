@@ -9,9 +9,7 @@ try: # detect TPUs
     tpu = tf.distribute.cluster_resolver.TPUClusterResolver.connect() # TPU detection
     strategy = tf.distribute.TPUStrategy(tpu)
     
-    with tpu_strategy.scope():
-
-
+with tpu_strategy.scope():
 def vgg_layers(layer_names):
     vgg = VGG19(include_top = False, weights = 'imagenet')
     vgg.trainable = False
