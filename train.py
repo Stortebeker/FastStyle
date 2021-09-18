@@ -8,8 +8,11 @@ from modules.forward import feed_forward
 try: # detect TPUs
     tpu = tf.distribute.cluster_resolver.TPUClusterResolver.connect() # TPU detection
     strategy = tf.distribute.TPUStrategy(tpu)
+if tpu :
+    tf.config.experimental_connect_to_cluster(tpu)
+    tf.tpu.experimental.initialize_tpu_system(tpu)
+    strategy = tf.distribute.experimental.TPUStrategy(tpu)
     
-with tpu_strategy.scope():
 def vgg_layers(layer_names):
     vgg = VGG19(include_top = False, weights = 'imagenet')
     vgg.trainable = False
