@@ -5,6 +5,11 @@ import os
 from modules.utils import tensor_to_image, load_img, create_folder, clip_0_1
 from modules.vgg19 import preprocess_input, VGG19
 from modules.forward import feed_forward
+try: # detect TPUs
+    tpu = tf.distribute.cluster_resolver.TPUClusterResolver.connect() # TPU detection
+    strategy = tf.distribute.TPUStrategy(tpu)
+    
+    with tpu_strategy.scope():
 
 
 def vgg_layers(layer_names):
